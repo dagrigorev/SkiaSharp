@@ -420,9 +420,17 @@ namespace SkiaSharp
 		[DllImport (SKIA, CallingConvention = CallingConvention.Cdecl)]
 		internal static extern void sk_canvas_draw_arc (sk_canvas_t ccanvas, SKRect* oval, Single startAngle, Single sweepAngle, [MarshalAs (UnmanagedType.I1)] bool useCenter, sk_paint_t paint);
 
+		// void sk_canvas_draw_arc_wa(sk_canvas_t* ccanvas, const sk_rect_t* oval, float startAngle, float sweepAngle, bool useCenter, const sk_paint_t* paint, const char* attrName, const char* attrVal)
+		[DllImport (SKIA, CallingConvention = CallingConvention.Cdecl)]
+		internal static extern void sk_canvas_draw_arc_wa (sk_canvas_t ccanvas, SKRect* oval, Single startAngle, Single sweepAngle, [MarshalAs (UnmanagedType.I1)] bool useCenter, sk_paint_t paint, /* char */ void* attrName, /* char */ void* attrVal);
+
 		// void sk_canvas_draw_atlas(sk_canvas_t* ccanvas, const sk_image_t* atlas, const sk_rsxform_t* xform, const sk_rect_t* tex, const sk_color_t* colors, int count, sk_blendmode_t mode, const sk_rect_t* cullRect, const sk_paint_t* paint)
 		[DllImport (SKIA, CallingConvention = CallingConvention.Cdecl)]
 		internal static extern void sk_canvas_draw_atlas (sk_canvas_t ccanvas, sk_image_t atlas, SKRotationScaleMatrix* xform, SKRect* tex, UInt32* colors, Int32 count, SKBlendMode mode, SKRect* cullRect, sk_paint_t paint);
+
+		// void sk_canvas_draw_atlas_wa(sk_canvas_t* ccanvas, const sk_image_t* atlas, const sk_rsxform_t* xform, const sk_rect_t* tex, const sk_color_t* colors, int count, sk_blendmode_t mode, const sk_rect_t* cullRect, const sk_paint_t* paint, const char* attrName, const char* attrVal)
+		[DllImport (SKIA, CallingConvention = CallingConvention.Cdecl)]
+		internal static extern void sk_canvas_draw_atlas_wa (sk_canvas_t ccanvas, sk_image_t atlas, SKRotationScaleMatrix* xform, SKRect* tex, UInt32* colors, Int32 count, SKBlendMode mode, SKRect* cullRect, sk_paint_t paint, /* char */ void* attrName, /* char */ void* attrVal);
 
 		// void sk_canvas_draw_bitmap(sk_canvas_t* ccanvas, const sk_bitmap_t* bitmap, float left, float top, const sk_paint_t* paint)
 		[DllImport (SKIA, CallingConvention = CallingConvention.Cdecl)]
@@ -440,21 +448,45 @@ namespace SkiaSharp
 		[DllImport (SKIA, CallingConvention = CallingConvention.Cdecl)]
 		internal static extern void sk_canvas_draw_bitmap_rect (sk_canvas_t ccanvas, sk_bitmap_t bitmap, SKRect* src, SKRect* dst, sk_paint_t paint);
 
+		// void sk_canvas_draw_bitmap_rect_wa(sk_canvas_t* ccanvas, const sk_bitmap_t* bitmap, const sk_rect_t* src, const sk_rect_t* dst, const sk_paint_t* paint, const char* attrName, const char* attrVal)
+		[DllImport (SKIA, CallingConvention = CallingConvention.Cdecl)]
+		internal static extern void sk_canvas_draw_bitmap_rect_wa (sk_canvas_t ccanvas, sk_bitmap_t bitmap, SKRect* src, SKRect* dst, sk_paint_t paint, /* char */ void* attrName, /* char */ void* attrVal);
+
+		// void sk_canvas_draw_bitmap_wa(sk_canvas_t* ccanvas, const sk_bitmap_t* bitmap, float left, float top, const sk_paint_t* paint, const char* attrName, const char* attrVal)
+		[DllImport (SKIA, CallingConvention = CallingConvention.Cdecl)]
+		internal static extern void sk_canvas_draw_bitmap_wa (sk_canvas_t ccanvas, sk_bitmap_t bitmap, Single left, Single top, sk_paint_t paint, /* char */ void* attrName, /* char */ void* attrVal);
+
 		// void sk_canvas_draw_circle(sk_canvas_t*, float cx, float cy, float rad, const sk_paint_t*)
 		[DllImport (SKIA, CallingConvention = CallingConvention.Cdecl)]
 		internal static extern void sk_canvas_draw_circle (sk_canvas_t param0, Single cx, Single cy, Single rad, sk_paint_t param4);
+
+		// void sk_canvas_draw_circle_wa(sk_canvas_t*, float cx, float cy, float rad, const sk_paint_t*, const char*, const char*)
+		[DllImport (SKIA, CallingConvention = CallingConvention.Cdecl)]
+		internal static extern void sk_canvas_draw_circle_wa (sk_canvas_t param0, Single cx, Single cy, Single rad, sk_paint_t param4, /* char */ void* param5, /* char */ void* param6);
 
 		// void sk_canvas_draw_color(sk_canvas_t* ccanvas, sk_color_t color, sk_blendmode_t mode)
 		[DllImport (SKIA, CallingConvention = CallingConvention.Cdecl)]
 		internal static extern void sk_canvas_draw_color (sk_canvas_t ccanvas, UInt32 color, SKBlendMode mode);
 
+		// void sk_canvas_draw_color_wa(sk_canvas_t* ccanvas, sk_color_t color, sk_blendmode_t mode, const char* attr_name, const char* attr_val)
+		[DllImport (SKIA, CallingConvention = CallingConvention.Cdecl)]
+		internal static extern void sk_canvas_draw_color_wa (sk_canvas_t ccanvas, UInt32 color, SKBlendMode mode, /* char */ void* attr_name, /* char */ void* attr_val);
+
 		// void sk_canvas_draw_drawable(sk_canvas_t*, sk_drawable_t*, const sk_matrix_t*)
 		[DllImport (SKIA, CallingConvention = CallingConvention.Cdecl)]
 		internal static extern void sk_canvas_draw_drawable (sk_canvas_t param0, sk_drawable_t param1, SKMatrix* param2);
 
+		// void sk_canvas_draw_drawable_wa(sk_canvas_t*, sk_drawable_t*, const sk_matrix_t*, const char*, const char*)
+		[DllImport (SKIA, CallingConvention = CallingConvention.Cdecl)]
+		internal static extern void sk_canvas_draw_drawable_wa (sk_canvas_t param0, sk_drawable_t param1, SKMatrix* param2, /* char */ void* param3, /* char */ void* param4);
+
 		// void sk_canvas_draw_drrect(sk_canvas_t* ccanvas, const sk_rrect_t* outer, const sk_rrect_t* inner, const sk_paint_t* paint)
 		[DllImport (SKIA, CallingConvention = CallingConvention.Cdecl)]
 		internal static extern void sk_canvas_draw_drrect (sk_canvas_t ccanvas, sk_rrect_t outer, sk_rrect_t inner, sk_paint_t paint);
+
+		// void sk_canvas_draw_drrect_wa(sk_canvas_t* ccanvas, const sk_rrect_t* outer, const sk_rrect_t* inner, const sk_paint_t* paint, const char* attrName, const char* attrVal)
+		[DllImport (SKIA, CallingConvention = CallingConvention.Cdecl)]
+		internal static extern void sk_canvas_draw_drrect_wa (sk_canvas_t ccanvas, sk_rrect_t outer, sk_rrect_t inner, sk_paint_t paint, /* char */ void* attrName, /* char */ void* attrVal);
 
 		// void sk_canvas_draw_image(sk_canvas_t*, const sk_image_t*, float x, float y, const sk_paint_t*)
 		[DllImport (SKIA, CallingConvention = CallingConvention.Cdecl)]
@@ -472,9 +504,21 @@ namespace SkiaSharp
 		[DllImport (SKIA, CallingConvention = CallingConvention.Cdecl)]
 		internal static extern void sk_canvas_draw_image_rect (sk_canvas_t param0, sk_image_t param1, SKRect* src, SKRect* dst, sk_paint_t param4);
 
+		// void sk_canvas_draw_image_rect_wa(sk_canvas_t*, const sk_image_t*, const sk_rect_t* src, const sk_rect_t* dst, const sk_paint_t*, const char*, const char*)
+		[DllImport (SKIA, CallingConvention = CallingConvention.Cdecl)]
+		internal static extern void sk_canvas_draw_image_rect_wa (sk_canvas_t param0, sk_image_t param1, SKRect* src, SKRect* dst, sk_paint_t param4, /* char */ void* param5, /* char */ void* param6);
+
+		// void sk_canvas_draw_image_wa(sk_canvas_t*, const sk_image_t*, float x, float y, const sk_paint_t*, const char*, const char*)
+		[DllImport (SKIA, CallingConvention = CallingConvention.Cdecl)]
+		internal static extern void sk_canvas_draw_image_wa (sk_canvas_t param0, sk_image_t param1, Single x, Single y, sk_paint_t param4, /* char */ void* param5, /* char */ void* param6);
+
 		// void sk_canvas_draw_line(sk_canvas_t* ccanvas, float x0, float y0, float x1, float y1, sk_paint_t* cpaint)
 		[DllImport (SKIA, CallingConvention = CallingConvention.Cdecl)]
 		internal static extern void sk_canvas_draw_line (sk_canvas_t ccanvas, Single x0, Single y0, Single x1, Single y1, sk_paint_t cpaint);
+
+		// void sk_canvas_draw_line_wa(sk_canvas_t* ccanvas, float x0, float y0, float x1, float y1, sk_paint_t* cpaint, const char* attr_name, const char* attr_val)
+		[DllImport (SKIA, CallingConvention = CallingConvention.Cdecl)]
+		internal static extern void sk_canvas_draw_line_wa (sk_canvas_t ccanvas, Single x0, Single y0, Single x1, Single y1, sk_paint_t cpaint, /* char */ void* attr_name, /* char */ void* attr_val);
 
 		// void sk_canvas_draw_link_destination_annotation(sk_canvas_t* t, const sk_rect_t* rect, sk_data_t* value)
 		[DllImport (SKIA, CallingConvention = CallingConvention.Cdecl)]
@@ -488,49 +532,97 @@ namespace SkiaSharp
 		[DllImport (SKIA, CallingConvention = CallingConvention.Cdecl)]
 		internal static extern void sk_canvas_draw_oval (sk_canvas_t param0, SKRect* param1, sk_paint_t param2);
 
+		// void sk_canvas_draw_oval_wa(sk_canvas_t*, const sk_rect_t*, const sk_paint_t*, const char*, const char*)
+		[DllImport (SKIA, CallingConvention = CallingConvention.Cdecl)]
+		internal static extern void sk_canvas_draw_oval_wa (sk_canvas_t param0, SKRect* param1, sk_paint_t param2, /* char */ void* param3, /* char */ void* param4);
+
 		// void sk_canvas_draw_paint(sk_canvas_t*, const sk_paint_t*)
 		[DllImport (SKIA, CallingConvention = CallingConvention.Cdecl)]
 		internal static extern void sk_canvas_draw_paint (sk_canvas_t param0, sk_paint_t param1);
+
+		// void sk_canvas_draw_paint_wa(sk_canvas_t*, const sk_paint_t*, const char*, const char*)
+		[DllImport (SKIA, CallingConvention = CallingConvention.Cdecl)]
+		internal static extern void sk_canvas_draw_paint_wa (sk_canvas_t param0, sk_paint_t param1, /* char */ void* param2, /* char */ void* param3);
 
 		// void sk_canvas_draw_patch(sk_canvas_t* ccanvas, const sk_point_t* cubics, const sk_color_t* colors, const sk_point_t* texCoords, sk_blendmode_t mode, const sk_paint_t* paint)
 		[DllImport (SKIA, CallingConvention = CallingConvention.Cdecl)]
 		internal static extern void sk_canvas_draw_patch (sk_canvas_t ccanvas, SKPoint* cubics, UInt32* colors, SKPoint* texCoords, SKBlendMode mode, sk_paint_t paint);
 
+		// void sk_canvas_draw_patch_wa(sk_canvas_t* ccanvas, const sk_point_t* cubics, const sk_color_t* colors, const sk_point_t* texCoords, sk_blendmode_t mode, const sk_paint_t* paint, const char* attrName, const char* attrVal)
+		[DllImport (SKIA, CallingConvention = CallingConvention.Cdecl)]
+		internal static extern void sk_canvas_draw_patch_wa (sk_canvas_t ccanvas, SKPoint* cubics, UInt32* colors, SKPoint* texCoords, SKBlendMode mode, sk_paint_t paint, /* char */ void* attrName, /* char */ void* attrVal);
+
 		// void sk_canvas_draw_path(sk_canvas_t*, const sk_path_t*, const sk_paint_t*)
 		[DllImport (SKIA, CallingConvention = CallingConvention.Cdecl)]
 		internal static extern void sk_canvas_draw_path (sk_canvas_t param0, sk_path_t param1, sk_paint_t param2);
+
+		// void sk_canvas_draw_path_wa(sk_canvas_t*, const sk_path_t*, const sk_paint_t*, const char*, const char*)
+		[DllImport (SKIA, CallingConvention = CallingConvention.Cdecl)]
+		internal static extern void sk_canvas_draw_path_wa (sk_canvas_t param0, sk_path_t param1, sk_paint_t param2, /* char */ void* param3, /* char */ void* param4);
 
 		// void sk_canvas_draw_picture(sk_canvas_t*, const sk_picture_t*, const sk_matrix_t*, const sk_paint_t*)
 		[DllImport (SKIA, CallingConvention = CallingConvention.Cdecl)]
 		internal static extern void sk_canvas_draw_picture (sk_canvas_t param0, sk_picture_t param1, SKMatrix* param2, sk_paint_t param3);
 
+		// void sk_canvas_draw_picture_wa(sk_canvas_t*, const sk_picture_t*, const sk_matrix_t*, const sk_paint_t*, const char*, const char*)
+		[DllImport (SKIA, CallingConvention = CallingConvention.Cdecl)]
+		internal static extern void sk_canvas_draw_picture_wa (sk_canvas_t param0, sk_picture_t param1, SKMatrix* param2, sk_paint_t param3, /* char */ void* param4, /* char */ void* param5);
+
 		// void sk_canvas_draw_point(sk_canvas_t*, float, float, const sk_paint_t*)
 		[DllImport (SKIA, CallingConvention = CallingConvention.Cdecl)]
 		internal static extern void sk_canvas_draw_point (sk_canvas_t param0, Single param1, Single param2, sk_paint_t param3);
+
+		// void sk_canvas_draw_point_wa(sk_canvas_t*, float, float, const sk_paint_t*, const char*, const char*)
+		[DllImport (SKIA, CallingConvention = CallingConvention.Cdecl)]
+		internal static extern void sk_canvas_draw_point_wa (sk_canvas_t param0, Single param1, Single param2, sk_paint_t param3, /* char */ void* param4, /* char */ void* param5);
 
 		// void sk_canvas_draw_points(sk_canvas_t*, sk_point_mode_t, size_t, const sk_point_t[-1], const sk_paint_t*)
 		[DllImport (SKIA, CallingConvention = CallingConvention.Cdecl)]
 		internal static extern void sk_canvas_draw_points (sk_canvas_t param0, SKPointMode param1, /* size_t */ IntPtr param2, SKPoint* param3, sk_paint_t param4);
 
+		// void sk_canvas_draw_points_wa(sk_canvas_t*, sk_point_mode_t, size_t, const sk_point_t[-1], const sk_paint_t*, const char* attr_name, const char* attr_val)
+		[DllImport (SKIA, CallingConvention = CallingConvention.Cdecl)]
+		internal static extern void sk_canvas_draw_points_wa (sk_canvas_t param0, SKPointMode param1, /* size_t */ IntPtr param2, SKPoint* param3, sk_paint_t param4, /* char */ void* attr_name, /* char */ void* attr_val);
+
 		// void sk_canvas_draw_pos_text(sk_canvas_t*, const char* text, size_t byteLength, const sk_point_t[-1], const sk_paint_t* paint)
 		[DllImport (SKIA, CallingConvention = CallingConvention.Cdecl)]
 		internal static extern void sk_canvas_draw_pos_text (sk_canvas_t param0, /* char */ void* text, /* size_t */ IntPtr byteLength, SKPoint* param3, sk_paint_t paint);
+
+		// void sk_canvas_draw_pos_text_wa(sk_canvas_t*, const char* text, size_t byteLength, const sk_point_t[-1], const sk_paint_t* paint, const char* attrName, const char* attrVal)
+		[DllImport (SKIA, CallingConvention = CallingConvention.Cdecl)]
+		internal static extern void sk_canvas_draw_pos_text_wa (sk_canvas_t param0, /* char */ void* text, /* size_t */ IntPtr byteLength, SKPoint* param3, sk_paint_t paint, /* char */ void* attrName, /* char */ void* attrVal);
 
 		// void sk_canvas_draw_rect(sk_canvas_t*, const sk_rect_t*, const sk_paint_t*)
 		[DllImport (SKIA, CallingConvention = CallingConvention.Cdecl)]
 		internal static extern void sk_canvas_draw_rect (sk_canvas_t param0, SKRect* param1, sk_paint_t param2);
 
+		// void sk_canvas_draw_rect_wa(sk_canvas_t*, const sk_rect_t*, const sk_paint_t*, const char*, const char*)
+		[DllImport (SKIA, CallingConvention = CallingConvention.Cdecl)]
+		internal static extern void sk_canvas_draw_rect_wa (sk_canvas_t param0, SKRect* param1, sk_paint_t param2, /* char */ void* param3, /* char */ void* param4);
+
 		// void sk_canvas_draw_region(sk_canvas_t*, const sk_region_t*, const sk_paint_t*)
 		[DllImport (SKIA, CallingConvention = CallingConvention.Cdecl)]
 		internal static extern void sk_canvas_draw_region (sk_canvas_t param0, sk_region_t param1, sk_paint_t param2);
+
+		// void sk_canvas_draw_region_wa(sk_canvas_t*, const sk_region_t*, const sk_paint_t*, const char*, const char*)
+		[DllImport (SKIA, CallingConvention = CallingConvention.Cdecl)]
+		internal static extern void sk_canvas_draw_region_wa (sk_canvas_t param0, sk_region_t param1, sk_paint_t param2, /* char */ void* param3, /* char */ void* param4);
 
 		// void sk_canvas_draw_round_rect(sk_canvas_t*, const sk_rect_t*, float rx, float ry, const sk_paint_t*)
 		[DllImport (SKIA, CallingConvention = CallingConvention.Cdecl)]
 		internal static extern void sk_canvas_draw_round_rect (sk_canvas_t param0, SKRect* param1, Single rx, Single ry, sk_paint_t param4);
 
+		// void sk_canvas_draw_round_rect_wa(sk_canvas_t*, const sk_rect_t*, float rx, float ry, const sk_paint_t* t, const char* attrName, const char* attrVal)
+		[DllImport (SKIA, CallingConvention = CallingConvention.Cdecl)]
+		internal static extern void sk_canvas_draw_round_rect_wa (sk_canvas_t param0, SKRect* param1, Single rx, Single ry, sk_paint_t t, /* char */ void* attrName, /* char */ void* attrVal);
+
 		// void sk_canvas_draw_rrect(sk_canvas_t*, const sk_rrect_t*, const sk_paint_t*)
 		[DllImport (SKIA, CallingConvention = CallingConvention.Cdecl)]
 		internal static extern void sk_canvas_draw_rrect (sk_canvas_t param0, sk_rrect_t param1, sk_paint_t param2);
+
+		// void sk_canvas_draw_rrect_wa(sk_canvas_t*, const sk_rrect_t*, const sk_paint_t*, const char*, const char*)
+		[DllImport (SKIA, CallingConvention = CallingConvention.Cdecl)]
+		internal static extern void sk_canvas_draw_rrect_wa (sk_canvas_t param0, sk_rrect_t param1, sk_paint_t param2, /* char */ void* param3, /* char */ void* param4);
 
 		// void sk_canvas_draw_text(sk_canvas_t*, const char* text, size_t byteLength, float x, float y, const sk_paint_t* paint)
 		[DllImport (SKIA, CallingConvention = CallingConvention.Cdecl)]
@@ -540,9 +632,21 @@ namespace SkiaSharp
 		[DllImport (SKIA, CallingConvention = CallingConvention.Cdecl)]
 		internal static extern void sk_canvas_draw_text_blob (sk_canvas_t param0, sk_textblob_t text, Single x, Single y, sk_paint_t paint);
 
+		// void sk_canvas_draw_text_blob_wa(sk_canvas_t*, sk_textblob_t* text, float x, float y, const sk_paint_t* paint, const char* attrName, const char* attrVal)
+		[DllImport (SKIA, CallingConvention = CallingConvention.Cdecl)]
+		internal static extern void sk_canvas_draw_text_blob_wa (sk_canvas_t param0, sk_textblob_t text, Single x, Single y, sk_paint_t paint, /* char */ void* attrName, /* char */ void* attrVal);
+
 		// void sk_canvas_draw_text_on_path(sk_canvas_t*, const char* text, size_t byteLength, const sk_path_t* path, float hOffset, float vOffset, const sk_paint_t* paint)
 		[DllImport (SKIA, CallingConvention = CallingConvention.Cdecl)]
 		internal static extern void sk_canvas_draw_text_on_path (sk_canvas_t param0, /* char */ void* text, /* size_t */ IntPtr byteLength, sk_path_t path, Single hOffset, Single vOffset, sk_paint_t paint);
+
+		// void sk_canvas_draw_text_on_path_wa(sk_canvas_t*, const char* text, size_t byteLength, const sk_path_t* path, float hOffset, float vOffset, const sk_paint_t* paint, const char* attrName, const char* attrVal)
+		[DllImport (SKIA, CallingConvention = CallingConvention.Cdecl)]
+		internal static extern void sk_canvas_draw_text_on_path_wa (sk_canvas_t param0, /* char */ void* text, /* size_t */ IntPtr byteLength, sk_path_t path, Single hOffset, Single vOffset, sk_paint_t paint, /* char */ void* attrName, /* char */ void* attrVal);
+
+		// void sk_canvas_draw_text_wa(sk_canvas_t*, const char* text, size_t byteLength, float x, float y, const sk_paint_t* paint, const char* attrName, const char* attrVal)
+		[DllImport (SKIA, CallingConvention = CallingConvention.Cdecl)]
+		internal static extern void sk_canvas_draw_text_wa (sk_canvas_t param0, /* char */ void* text, /* size_t */ IntPtr byteLength, Single x, Single y, sk_paint_t paint, /* char */ void* attrName, /* char */ void* attrVal);
 
 		// void sk_canvas_draw_url_annotation(sk_canvas_t* t, const sk_rect_t* rect, sk_data_t* value)
 		[DllImport (SKIA, CallingConvention = CallingConvention.Cdecl)]
@@ -551,6 +655,10 @@ namespace SkiaSharp
 		// void sk_canvas_draw_vertices(sk_canvas_t* ccanvas, const sk_vertices_t* vertices, sk_blendmode_t mode, const sk_paint_t* paint)
 		[DllImport (SKIA, CallingConvention = CallingConvention.Cdecl)]
 		internal static extern void sk_canvas_draw_vertices (sk_canvas_t ccanvas, sk_vertices_t vertices, SKBlendMode mode, sk_paint_t paint);
+
+		// void sk_canvas_draw_vertices_wa(sk_canvas_t* ccanvas, const sk_vertices_t* vertices, sk_blendmode_t mode, const sk_paint_t* paint, const char* attrName, const char* attrVal)
+		[DllImport (SKIA, CallingConvention = CallingConvention.Cdecl)]
+		internal static extern void sk_canvas_draw_vertices_wa (sk_canvas_t ccanvas, sk_vertices_t vertices, SKBlendMode mode, sk_paint_t paint, /* char */ void* attrName, /* char */ void* attrVal);
 
 		// void sk_canvas_flush(sk_canvas_t* ccanvas)
 		[DllImport (SKIA, CallingConvention = CallingConvention.Cdecl)]

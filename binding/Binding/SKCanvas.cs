@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Text;
 
 namespace SkiaSharp
 {
@@ -53,12 +54,12 @@ namespace SkiaSharp
 
 		public int SaveLayer (SKRect limit, SKPaint paint)
 		{
-			return SkiaApi.sk_canvas_save_layer (Handle, &limit, paint == null ? IntPtr.Zero : paint.Handle);
+			return SkiaApi.sk_canvas_save_layer (Handle, &limit, paint?.Handle ?? IntPtr.Zero);
 		}
 
 		public int SaveLayer (SKPaint paint)
 		{
-			return SkiaApi.sk_canvas_save_layer (Handle, null, paint == null ? IntPtr.Zero : paint.Handle);
+			return SkiaApi.sk_canvas_save_layer (Handle, null, paint?.Handle ?? IntPtr.Zero);
 		}
 
 		public void DrawColor (SKColor color, SKBlendMode mode = SKBlendMode.Src)
@@ -77,6 +78,27 @@ namespace SkiaSharp
 				throw new ArgumentNullException (nameof (paint));
 			SkiaApi.sk_canvas_draw_line (Handle, x0, y0, x1, y1, paint.Handle);
 		}
+
+		public void DrawLine (SKPoint p0, SKPoint p1, SKPaint paint, string attrName, string attrVal)
+		{
+			DrawLine (p0.X, p0.Y, p1.X, p1.Y, paint, attrName, attrVal);
+		}
+
+		public void DrawLine (float x0, float y0, float x1, float y1, SKPaint paint, string attrName, string attrVal)
+		{
+			if (paint == null)
+				throw new ArgumentNullException (nameof (paint));
+			fixed (byte* ta = ToBytes (paint, attrName)) {
+				fixed (byte* tv = ToBytes (paint, attrVal)) {
+					SkiaApi.sk_canvas_draw_line_wa (Handle, x0, y0, x1, y1,
+						paint.Handle,
+						ta,
+						tv);
+				}
+			}
+		}
+
+		private static byte[] ToBytes (SKPaint paint, string text) => StringUtilities.GetEncodedText (text, paint.TextEncoding);
 
 		public void Clear ()
 		{
@@ -239,6 +261,17 @@ namespace SkiaSharp
 			SkiaApi.sk_canvas_draw_paint (Handle, paint.Handle);
 		}
 
+		public void DrawPaint (SKPaint paint, string attrName, string attrVal)
+		{
+			if (paint == null)
+				throw new ArgumentNullException (nameof (paint));
+			fixed (byte* ta = ToBytes (paint, attrName)) {
+				fixed (byte* tv = ToBytes (paint, attrVal)) {
+					SkiaApi.sk_canvas_draw_paint_wa (Handle, paint.Handle, ta, tv);
+				}
+			}
+		}
+
 		public void DrawRegion (SKRegion region, SKPaint paint)
 		{
 			if (region == null)
@@ -248,9 +281,25 @@ namespace SkiaSharp
 			SkiaApi.sk_canvas_draw_region (Handle, region.Handle, paint.Handle);
 		}
 
+		public void DrawRegion (SKRegion region, SKPaint paint, string attrName, string attrVal)
+		{
+			if (region == null)
+				throw new ArgumentNullException (nameof (region));
+			if (paint == null)
+				throw new ArgumentNullException (nameof (paint));
+			fixed(byte* ta = ToBytes (paint, attrName))
+				fixed(byte* tv = ToBytes (paint, attrVal))
+					SkiaApi.sk_canvas_draw_region_wa (Handle, region.Handle, paint.Handle, ta, tv);
+		}
+
 		public void DrawRect (float x, float y, float w, float h, SKPaint paint)
 		{
 			DrawRect (SKRect.Create (x, y, w, h), paint);
+		}
+
+		public void DrawRect (float x, float y, float w, float h, SKPaint paint, string attrName, string attrVal)
+		{
+			DrawRect (SKRect.Create (x, y, w, h), paint, attrName, attrVal);
 		}
 
 		public void DrawRect (SKRect rect, SKPaint paint)
@@ -258,6 +307,15 @@ namespace SkiaSharp
 			if (paint == null)
 				throw new ArgumentNullException (nameof (paint));
 			SkiaApi.sk_canvas_draw_rect (Handle, &rect, paint.Handle);
+		}
+
+		public void DrawRect (SKRect rect, SKPaint paint, string attrName, string attrVal)
+		{
+			if (paint == null)
+				throw new ArgumentNullException (nameof (paint));
+			fixed(byte* ta = ToBytes (paint, attrName))
+				fixed(byte* tv = ToBytes (paint, attrVal))
+					SkiaApi.sk_canvas_draw_rect_wa (Handle, &rect, paint.Handle, ta, tv);
 		}
 
 		public void DrawRoundRect (SKRoundRect rect, SKPaint paint)
@@ -269,9 +327,25 @@ namespace SkiaSharp
 			SkiaApi.sk_canvas_draw_rrect (Handle, rect.Handle, paint.Handle);
 		}
 
+		public void DrawRoundRect (SKRoundRect rect, SKPaint paint, string attrName, string attrVal)
+		{
+			if (rect == null)
+				throw new ArgumentNullException (nameof (rect));
+			if (paint == null)
+				throw new ArgumentNullException (nameof (paint));
+			fixed(byte* ta = ToBytes (paint, attrName))
+				fixed(byte* tv = ToBytes (paint, attrVal))
+					SkiaApi.sk_canvas_draw_rrect_wa (Handle, rect.Handle, paint.Handle, ta, tv);
+		}
+
 		public void DrawRoundRect (float x, float y, float w, float h, float rx, float ry, SKPaint paint)
 		{
 			DrawRoundRect (SKRect.Create (x, y, w, h), rx, ry, paint);
+		}
+
+		public void DrawRoundRect (float x, float y, float w, float h, float rx, float ry, SKPaint paint, string attrName, string attrVal)
+		{
+			DrawRoundRect (SKRect.Create (x, y, w, h), rx, ry, paint, attrName, attrVal);
 		}
 
 		public void DrawRoundRect (SKRect rect, float rx, float ry, SKPaint paint)
@@ -281,9 +355,23 @@ namespace SkiaSharp
 			SkiaApi.sk_canvas_draw_round_rect (Handle, &rect, rx, ry, paint.Handle);
 		}
 
+		public void DrawRoundRect (SKRect rect, float rx, float ry, SKPaint paint, string attrName, string attrVal)
+		{
+			if (paint == null)
+				throw new ArgumentNullException (nameof (paint));
+			fixed(byte* ta = ToBytes (paint, attrName))
+				fixed(byte* tv = ToBytes (paint, attrVal))
+					SkiaApi.sk_canvas_draw_round_rect_wa (Handle, &rect, rx, ry, paint.Handle, ta, tv);
+		}
+
 		public void DrawRoundRect (SKRect rect, SKSize r, SKPaint paint)
 		{
 			DrawRoundRect (rect, r.Width, r.Height, paint);
+		}
+
+		public void DrawRoundRect (SKRect rect, SKSize r, SKPaint paint, string attrName, string attrVal)
+		{
+			DrawRoundRect (rect, r.Width, r.Height, paint, attrName, attrVal);
 		}
 
 		public void DrawOval (float cx, float cy, float rx, float ry, SKPaint paint)
@@ -291,9 +379,19 @@ namespace SkiaSharp
 			DrawOval (new SKRect (cx - rx, cy - ry, cx + rx, cy + ry), paint);
 		}
 
+		public void DrawOval (float cx, float cy, float rx, float ry, SKPaint paint, string attrName, string attrVal)
+		{
+			DrawOval (new SKRect (cx - rx, cy - ry, cx + rx, cy + ry), paint, attrName, attrVal);
+		}
+
 		public void DrawOval (SKPoint c, SKSize r, SKPaint paint)
 		{
 			DrawOval (c.X, c.Y, r.Width, r.Height, paint);
+		}
+
+		public void DrawOval (SKPoint c, SKSize r, SKPaint paint, string attrName, string attrVal)
+		{
+			DrawOval (c.X, c.Y, r.Width, r.Height, paint, attrName, attrVal);
 		}
 
 		public void DrawOval (SKRect rect, SKPaint paint)
@@ -303,6 +401,15 @@ namespace SkiaSharp
 			SkiaApi.sk_canvas_draw_oval (Handle, &rect, paint.Handle);
 		}
 
+		public void DrawOval (SKRect rect, SKPaint paint, string attrName, string attrVal)
+		{
+			if (paint == null)
+				throw new ArgumentNullException (nameof (paint));
+			fixed(byte* ta = ToBytes (paint, attrName))
+				fixed(byte* tv = ToBytes(paint, attrVal))
+					SkiaApi.sk_canvas_draw_oval_wa (Handle, &rect, paint.Handle, ta, tv);
+		}
+
 		public void DrawCircle (float cx, float cy, float radius, SKPaint paint)
 		{
 			if (paint == null)
@@ -310,11 +417,25 @@ namespace SkiaSharp
 			SkiaApi.sk_canvas_draw_circle (Handle, cx, cy, radius, paint.Handle);
 		}
 
+		public void DrawCircle (float cx, float cy, float radius, SKPaint paint, string attrName, string attrVal)
+		{
+			if (paint == null)
+				throw new ArgumentNullException (nameof (paint));
+			fixed(byte* ta = ToBytes (paint, attrName))
+				fixed(byte* tv = ToBytes (paint, attrVal))
+					SkiaApi.sk_canvas_draw_circle_wa (Handle, cx, cy, radius, paint.Handle, ta, tv);
+		}
+
 		public void DrawCircle (SKPoint c, float radius, SKPaint paint)
 		{
 			DrawCircle (c.X, c.Y, radius, paint);
 		}
-		
+
+		public void DrawCircle (SKPoint c, float radius, SKPaint paint, string attrName, string attrVal)
+		{
+			DrawCircle (c.X, c.Y, radius, paint, attrName, attrVal);
+		}
+
 		public void DrawPath (SKPath path, SKPaint paint)
 		{
 			if (paint == null)
@@ -322,6 +443,17 @@ namespace SkiaSharp
 			if (path == null)
 				throw new ArgumentNullException (nameof (path));
 			SkiaApi.sk_canvas_draw_path (Handle, path.Handle, paint.Handle);
+		}
+
+		public void DrawPath (SKPath path, SKPaint paint, string attrName, string attrVal)
+		{
+			if (paint == null)
+				throw new ArgumentNullException (nameof (paint));
+			if (path == null)
+				throw new ArgumentNullException (nameof (path));
+			fixed(byte* ta = ToBytes (paint, attrName))
+				fixed(byte* tv = ToBytes (paint, attrVal))
+					SkiaApi.sk_canvas_draw_path_wa (Handle, path.Handle, paint.Handle, ta, tv);
 		}
 
 		public void DrawPoints (SKPointMode mode, SKPoint [] points, SKPaint paint)
@@ -332,6 +464,21 @@ namespace SkiaSharp
 				throw new ArgumentNullException (nameof (points));
 			fixed (SKPoint* p = points) {
 				SkiaApi.sk_canvas_draw_points (Handle, mode, (IntPtr)points.Length, p, paint.Handle);
+			}
+		}
+
+		public void DrawPoints (SKPointMode mode, SKPoint[] points, SKPaint paint, string attrName, string attrVal)
+		{
+			if (paint == null)
+				throw new ArgumentNullException (nameof (paint));
+			if (points == null)
+				throw new ArgumentNullException (nameof (points));
+			fixed (SKPoint* p = points) {
+				fixed(byte* ta = ToBytes (paint, attrName)) {
+					fixed (byte* tv = ToBytes (paint, attrVal)) {
+						SkiaApi.sk_canvas_draw_points_wa (Handle, mode, (IntPtr)points.Length, p, paint.Handle, ta, tv);
+					}
+				}
 			}
 		}
 
@@ -347,9 +494,25 @@ namespace SkiaSharp
 			SkiaApi.sk_canvas_draw_point (Handle, x, y, paint.Handle);
 		}
 
+		public void DrawPoint (float x, float y, SKPaint paint, string attrName, string attrVal)
+		{
+			if (paint == null)
+				throw new ArgumentNullException (nameof (paint));
+			fixed (byte* ta = ToBytes (paint, attrName)) {
+				fixed (byte* tv = ToBytes (paint, attrVal)) {
+					SkiaApi.sk_canvas_draw_point_wa (Handle, x, y, paint.Handle, ta, tv);
+				}
+			}
+		}
+
 		public void DrawPoint (SKPoint p, SKColor color)
 		{
 			DrawPoint (p.X, p.Y, color);
+		}
+
+		public void DrawPoint (SKPoint p, SKColor color, string attrName, string attrVal)
+		{
+			DrawPoint (p.X, p.Y, color, attrName, attrVal);
 		}
 
 		public void DrawPoint (float x, float y, SKColor color)
@@ -359,16 +522,37 @@ namespace SkiaSharp
 			}
 		}
 
+		public void DrawPoint (float x, float y, SKColor color, string attrName, string attrVal)
+		{
+			using (var paint = new SKPaint { Color = color }) {
+				DrawPoint (x, y, paint, attrName, attrVal);
+			}
+		}
+
 		public void DrawImage (SKImage image, SKPoint p, SKPaint paint = null)
 		{
 			DrawImage (image, p.X, p.Y, paint);
+		}
+
+		public void DrawImage (SKImage image, SKPoint p, string attrName, string attrVal, SKPaint paint = null)
+		{
+			DrawImage (image, p.X, p.Y, attrName, attrVal, paint);
 		}
 
 		public void DrawImage (SKImage image, float x, float y, SKPaint paint = null)
 		{
 			if (image == null)
 				throw new ArgumentNullException (nameof (image));
-			SkiaApi.sk_canvas_draw_image (Handle, image.Handle, x, y, paint == null ? IntPtr.Zero : paint.Handle);
+			SkiaApi.sk_canvas_draw_image (Handle, image.Handle, x, y, paint?.Handle ?? IntPtr.Zero);
+		}
+
+		public void DrawImage (SKImage image, float x, float y, string attrName, string attrVal, SKPaint paint = null)
+		{
+			if (image == null)
+				throw new ArgumentNullException (nameof (image));
+			fixed(byte* ta = ToBytes (paint, attrName))
+				fixed(byte* tv = ToBytes (paint, attrVal))
+					SkiaApi.sk_canvas_draw_image_wa (Handle, image.Handle, x, y, paint?.Handle ?? IntPtr.Zero,  ta, tv);
 		}
 
 		public void DrawImage (SKImage image, SKRect dest, SKPaint paint = null)
@@ -405,6 +589,17 @@ namespace SkiaSharp
 			}
 		}
 
+		public void DrawPicture (SKPicture picture, ref SKMatrix matrix, string attrName, string attrVal, SKPaint paint = null)
+		{
+			if (picture == null)
+				throw new ArgumentNullException (nameof (picture));
+			fixed (SKMatrix* m = &matrix) {
+				fixed(byte* ta = ToBytes (paint, attrName))
+					fixed(byte* tv = ToBytes (paint, attrVal))
+						SkiaApi.sk_canvas_draw_picture_wa (Handle, picture.Handle, m, paint?.Handle ?? IntPtr.Zero, ta, tv);
+			}
+		}
+
 		public void DrawPicture (SKPicture picture, SKPaint paint = null)
 		{
 			if (picture == null)
@@ -417,6 +612,16 @@ namespace SkiaSharp
 			if (drawable == null)
 				throw new ArgumentNullException (nameof (drawable));
 			fixed (SKMatrix* m = &matrix) {
+				SkiaApi.sk_canvas_draw_drawable (Handle, drawable.Handle, m);
+			}
+		}
+
+		public void DrawDrawable (SKDrawable drawable, ref SKMatrix matrix, string attrName, string attrVal)
+		{
+			if (drawable == null)
+				throw new ArgumentNullException (nameof (drawable));
+			fixed (SKMatrix* m = &matrix) {
+				// TODO: Convert attr to byte[]
 				SkiaApi.sk_canvas_draw_drawable (Handle, drawable.Handle, m);
 			}
 		}

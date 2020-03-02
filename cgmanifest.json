@@ -4,7 +4,7 @@
             "component": {
                 "type": "git",
                 "git": {
-                    "repositoryUrl": "https://github.com/mono/skia.git",
+                    "repositoryUrl": "https://github.com/dagrigorev/skia.git",
                     "commitHash": "acad4805dfadf801d6ea62a93652c70a3fbbe10e"
                 }
             }
