@@ -5,7 +5,7 @@ namespace SkiaSharp
 {
 	public unsafe partial struct SKMatrix
 	{
-		internal const float DegreesToRadians = (float)Math.PI / 180.0f;
+		public const float DegreesToRadians = (float)Math.PI / 180.0f;
 
 		public readonly static SKMatrix Empty;
 

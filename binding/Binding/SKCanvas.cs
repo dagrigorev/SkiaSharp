@@ -292,6 +292,13 @@ namespace SkiaSharp
 					SkiaApi.sk_canvas_draw_region_wa (Handle, region.Handle, paint.Handle, ta, tv);
 		}
 
+		public void DrawCustom (SKRect rect, SKPaint paint, SKCustomElement customElement)
+		{
+			if (paint == null)
+				throw new ArgumentNullException (nameof (paint));
+			SkiaApi.sk_canvas_draw_custom (Handle, &customElement, paint.Handle);
+		}
+
 		public void DrawRect (float x, float y, float w, float h, SKPaint paint)
 		{
 			DrawRect (SKRect.Create (x, y, w, h), paint);
