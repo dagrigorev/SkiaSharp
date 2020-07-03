@@ -30,7 +30,6 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\..\binding\SkiaSharp\SkiaSharp.csproj" />
-    <ProjectReference Include="..\..\SkiaSharp.Views\SkiaSharp.Views.Gtk\SkiaSharp.Views.Gtk.csproj" />
   </ItemGroup>
   <ItemGroup>
     <None Include="nuget\build\net45\SkiaSharp.Views.Forms.GTK.props" />

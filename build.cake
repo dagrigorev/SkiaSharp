@@ -50,18 +50,11 @@ var AZURE_BUILD_URL = "https://dev.azure.com/xamarin/6fd3d886-57a5-4e31-8db7-52a
 
 var TRACKED_NUGETS = new Dictionary<string, Version> {
     { "SkiaSharp",                                     new Version (1, 57, 0) },
-    { "SkiaSharp.NativeAssets.Linux",                  new Version (1, 57, 0) },
-    { "SkiaSharp.NativeAssets.Linux.NoDependencies",   new Version (1, 57, 0) },
-    { "SkiaSharp.NativeAssets.NanoServer",             new Version (1, 57, 0) },
     { "SkiaSharp.Views",                               new Version (1, 57, 0) },
     { "SkiaSharp.Views.Desktop.Common",                new Version (1, 57, 0) },
-    { "SkiaSharp.Views.Gtk2",                          new Version (1, 57, 0) },
-    { "SkiaSharp.Views.Gtk3",                          new Version (1, 57, 0) },
-    { "SkiaSharp.Views.WindowsForms",                  new Version (1, 57, 0) },
     { "SkiaSharp.Views.WPF",                           new Version (1, 57, 0) },
     { "SkiaSharp.Views.Forms",                         new Version (1, 57, 0) },
     { "SkiaSharp.Views.Forms.WPF",                     new Version (1, 57, 0) },
-    { "SkiaSharp.Views.Forms.GTK",                     new Version (1, 57, 0) },
     { "HarfBuzzSharp",                                 new Version (1, 0, 0) },
     { "HarfBuzzSharp.NativeAssets.Linux",              new Version (1, 0, 0) },
     { "SkiaSharp.HarfBuzz",                            new Version (1, 57, 0) },
@@ -210,22 +203,10 @@ Task ("samples")
     var isWin = IsRunningOnWindows ();
 
     var buildMatrix = new Dictionary<string, bool> {
-        { "android", isMac || isWin },
-        { "gtk", isLinux || isMac },
-        { "ios", isMac },
-        { "macos", isMac },
-        { "tvos", isMac },
-        { "uwp", isWin },
-        { "watchos", isMac },
         { "wpf", isWin },
     };
 
     var platformMatrix = new Dictionary<string, string> {
-        { "ios", "iPhone" },
-        { "tvos", "iPhoneSimulator" },
-        { "uwp", "x86" },
-        { "watchos", "iPhoneSimulator" },
-        { "xamarin.forms.mac", "iPhone" },
         { "xamarin.forms.windows", "x86" },
     };
 
@@ -293,8 +274,6 @@ Task ("samples")
             // this is a platform variant
             slnPlatform = slnPlatform.ToLower ();
             var shouldBuild =
-                (isLinux && slnPlatform == ".linux") ||
-                (isMac && slnPlatform == ".mac") ||
                 (isWin && slnPlatform == ".windows");
             if (shouldBuild) {
                 BuildSample (sln);

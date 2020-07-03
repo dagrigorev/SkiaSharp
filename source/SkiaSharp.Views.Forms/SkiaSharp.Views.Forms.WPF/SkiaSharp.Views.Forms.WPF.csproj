@@ -23,8 +23,8 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\..\binding\SkiaSharp\SkiaSharp.csproj" />
-    <ProjectReference Include="..\..\SkiaSharp.Views\SkiaSharp.Views.WPF\SkiaSharp.Views.WPF.csproj" />
     <ProjectReference Include="..\..\SkiaSharp.Views\SkiaSharp.Views.WindowsForms\SkiaSharp.Views.WindowsForms.csproj" />
+    <ProjectReference Include="..\..\SkiaSharp.Views\SkiaSharp.Views.WPF\SkiaSharp.Views.WPF.csproj" />
   </ItemGroup>
   <ItemGroup>
     <None Include="nuget\build\net45\SkiaSharp.Views.Forms.WPF.props" />
