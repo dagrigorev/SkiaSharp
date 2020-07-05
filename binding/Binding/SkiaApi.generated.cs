@@ -3924,22 +3924,15 @@ namespace SkiaSharp
 	// sk_attr_t
 	[StructLayout (LayoutKind.Sequential)]
 	public unsafe partial struct SKAttr : IEquatable<SKAttr> {
-		// public const char[50] attrName
-		private /* char */ void* attrName;
-		public /* char */ void* AttrName {
-			readonly get => attrName;
-			set => attrName = value;
-		}
-
-		// public const char* attrData
-		private /* char */ void* attrData;
-		public /* char */ void* AttrData {
-			readonly get => attrData;
-			set => attrData = value;
+		// public const char* jsonData
+		private /* char */ void* jsonData;
+		public /* char */ void* JsonData {
+			readonly get => jsonData;
+			set => jsonData = value;
 		}
 
 		public readonly bool Equals (SKAttr obj) =>
-			attrName == obj.attrName && attrData == obj.attrData;
+			jsonData == obj.jsonData;
 
 		public readonly override bool Equals (object obj) =>
 			obj is SKAttr f && Equals (f);
@@ -3953,8 +3946,7 @@ namespace SkiaSharp
 		public readonly override int GetHashCode ()
 		{
 			var hash = new HashCode ();
-			hash.Add (attrName);
-			hash.Add (attrData);
+			hash.Add (jsonData);
 			return hash.ToHashCode ();
 		}
 
